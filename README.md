@@ -52,6 +52,15 @@ To move to an LLM with a different API, replace `_client` / `propose_mapping` in
 return JSON that matches `agent.SCHEMA` (the rest of the pipeline is plain Python). Only the source *profile*
 (column names, counts, sample values) is sent to the model, never the whole file.
 
+## Deploy on Streamlit Community Cloud
+
+1. On [share.streamlit.io](https://share.streamlit.io) sign in with GitHub → **Create app** → *Deploy a public app
+   from GitHub*: repository `trkuljaa99/Migration-assistant`, branch `main`, main file `app.py`.
+2. **Advanced settings**: Python 3.12, and paste the secrets (see `.streamlit/secrets.toml.example`):
+   `ANTHROPIC_API_KEY`, `ADMIN_EMAIL`, `ADMIN_PASSWORD`, `ADMIN_NAME`.
+3. **Deploy**. The admin is created from the secrets on start. Community Cloud wipes the disk when the app
+   restarts (after a redeploy or a long sleep), so projects, uploads and extra users are temporary there.
+
 ## Deploy (Linux, systemd)
 
 Copy the folder to `/opt/sap-migration`, create the venv and `secrets.toml`, then install

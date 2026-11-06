@@ -413,7 +413,20 @@ def users_page():
 
 # ---------------------------------------------------------------- main
 
+@st.cache_resource
+def ensure_admin():
+    """ADMIN_EMAIL / ADMIN_PASSWORD in the secrets: that admin exists (created on start). On Streamlit Community
+    Cloud the disk is wiped at every restart, so the admin comes back from the secrets."""
+    try:
+        email, password = st.secrets.get("ADMIN_EMAIL"), st.secrets.get("ADMIN_PASSWORD")
+    except Exception:
+        return
+    if email and password and not store.check_login(email, password):
+        store.add_user(email, password, st.secrets.get("ADMIN_NAME", ""), True)
+
+
 def main():
+    ensure_admin()
     user = st.session_state.get("user")
     if not user:
         sign_in()  # (with the logo next to the title)
