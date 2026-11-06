@@ -1,0 +1,8 @@
+# secrets, data, environments
+.streamlit/secrets.toml
+data/
+.venv/
+__pycache__/
+*.pyc
+# the real service file holds the hidden URL path: only the .example is in the repository
+deploy/sap-migration.service

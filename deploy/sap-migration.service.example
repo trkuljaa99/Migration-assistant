@@ -1,0 +1,15 @@
+[Unit]
+Description=Migration Assistant (SAP S/4HANA migration templates)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=app
+WorkingDirectory=/opt/sap-migration
+# BASE_PATH: the URL path the app is served under (keep it unguessable if the site is public)
+ExecStart=/opt/sap-migration/.venv/bin/streamlit run app.py --server.port 8502 --server.address 127.0.0.1 --server.baseUrlPath BASE_PATH
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
